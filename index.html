@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular - Ingeniería Biomédica</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Malla Curricular de Ingeniería Biomédica</h1>
+        <div class="controls">
+            <button id="toggle-prerrequisitos">Mostrar/Ocultar Prerrequisitos</button>
+            <div class="legenda">
+                <span class="leyenda-item"><span class="color-box escuela"></span> Escuela</span>
+                <span class="leyenda-item"><span class="color-box ur"></span> UR</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="malla-container"></div>
+        
+        <div id="materia-info" class="hidden">
+            <h2 id="materia-nombre"></h2>
+            <p><strong>Código:</strong> <span id="materia-codigo"></span></p>
+            <p><strong>Créditos:</strong> <span id="materia-creditos"></span></p>
+            <p><strong>Institución:</strong> <span id="materia-institucion"></span></p>
+            <div id="prerrequisitos-container">
+                <p><strong>Prerrequisitos:</strong></p>
+                <ul id="prerrequisitos-list"></ul>
+            </div>
+            <button id="cerrar-info">Cerrar</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

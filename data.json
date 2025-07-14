@@ -1,0 +1,558 @@
+{
+  "nombre_programa": "Ingeniería Biomédica",
+  "total_creditos": 154,
+  "semestres": [
+    {
+      "numero": 0,
+      "materias": [
+        {
+          "codigo": "PREM",
+          "nombre": "Precálculo",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 1,
+      "materias": [
+        {
+          "codigo": "FFIS",
+          "nombre": "Fundamentos de Física",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "AGEO",
+          "nombre": "Análisis Geométrico",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "COMBR",
+          "nombre": "Competencia Comunicativa Básica",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "materias": [
+        {
+          "codigo": "FBICR",
+          "nombre": "Fundamentos de Biología",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "FQUIR",
+          "nombre": "Fundamentos de Química",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ALLI",
+          "nombre": "Álgebra Lineal",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["PREM"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "DEPD",
+          "nombre": "Deporte Dirigido",
+          "creditos": 0,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "materias": [
+        {
+          "codigo": "QUIGR",
+          "nombre": "Química General (Inorgánica y Orgánica)",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FQUIR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "CALD",
+          "nombre": "Cálculo Diferencial",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["PREM"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "IIBMR",
+          "nombre": "Ingeniería Biomédica",
+          "creditos": 2,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "EGR1",
+          "nombre": "Expresión Gráfica 1",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["AGEO"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 4,
+      "materias": [
+        {
+          "codigo": "FIMF",
+          "nombre": "Física Mecánica y de Fluidos",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FFIS", "CALD"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "CALI",
+          "nombre": "Cálculo Integral",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CALD"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "BICMR",
+          "nombre": "Biología Celular y Molecular",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FBICR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "CMCAR",
+          "nombre": "Competencia Comunicativa",
+          "creditos": 2,
+          "institucion": "UR",
+          "prerrequisitos": ["COMBR"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 5,
+      "materias": [
+        {
+          "codigo": "BIQMR",
+          "nombre": "Bioquímica",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BICMR", "QUIGR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "CALV",
+          "nombre": "Cálculo Vectorial",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CALI"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "BIST",
+          "nombre": "Bioestadística",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CALD"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "FIEM",
+          "nombre": "Física del Electromagnetismo",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FIMF"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 6,
+      "materias": [
+        {
+          "codigo": "BTLER",
+          "nombre": "Bioética y Legislación",
+          "creditos": 1,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "MORFR",
+          "nombre": "Morfofisiología",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BICMR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "FICO",
+          "nombre": "Física del Calor, Ondas y Estructura Atómica",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FIEM"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ECDI",
+          "nombre": "Ecuaciones Diferenciales",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CALV"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "CIE1",
+          "nombre": "Circuitos Eléctricos I",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FIEM"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 7,
+      "materias": [
+        {
+          "codigo": "BIF1R",
+          "nombre": "Biofísica 1",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["FICO", "MORFR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "BIFM",
+          "nombre": "Bioinformática",
+          "creditos": 2,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BICMR", "AYPR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "EHU1",
+          "nombre": "Electiva Humanística 1",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "LCIE",
+          "nombre": "Laboratorio Circuitos Eléctricos",
+          "creditos": 1,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CIE1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELA1",
+          "nombre": "Electrónica Análoga 1",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CIE1"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 8,
+      "materias": [
+        {
+          "codigo": "CIE2",
+          "nombre": "Circuitos Eléctricos II",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CIE1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "SED1",
+          "nombre": "Sistemas Electrónicos Digitales 1",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "SYSB",
+          "nombre": "Sistemas y Señales Biomédicos",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["CIE1", "ECDI"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "LEL1",
+          "nombre": "Laboratorio Electrónica Análoga 1",
+          "creditos": 1,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "BIF2R",
+          "nombre": "Biofísica 2",
+          "creditos": 2,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIF1R"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 9,
+      "materias": [
+        {
+          "codigo": "GADER",
+          "nombre": "Gestión y Administración de Empresas",
+          "creditos": 2,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELA2",
+          "nombre": "Electrónica Análoga 2",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "LEL2",
+          "nombre": "Laboratorio Electrónica Análoga 2",
+          "creditos": 1,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA2"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "SED2",
+          "nombre": "Sistemas Electrónicos Digitales 2",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["SED1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "BIOI",
+          "nombre": "Bioinstrumentación",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA1", "SYSB"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 10,
+      "materias": [
+        {
+          "codigo": "BIMT",
+          "nombre": "Biomateriales",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIQMR"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "IFMER",
+          "nombre": "Informática Médica",
+          "creditos": 2,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIFM"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "MPEI",
+          "nombre": "Microprocesadores e Interfaces",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["SED1"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "PSIM",
+          "nombre": "Procesamiento de Señales e Imágenes Médicas",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["SYSB"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELPO",
+          "nombre": "Electrónica de Potencia",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["ELA2"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 11,
+      "materias": [
+        {
+          "codigo": "BIOM",
+          "nombre": "Biomecánica",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIF1R"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP1R",
+          "nombre": "Electiva Programa 1",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "INCHR",
+          "nombre": "Ingeniería Clínica y Hospitalaria",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIOI"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "SCDB",
+          "nombre": "Sistemas de Control Digital Biomédico",
+          "creditos": 3,
+          "institucion": "Escuela",
+          "prerrequisitos": ["MPEI", "PSIM"],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 12,
+      "materias": [
+        {
+          "codigo": "DBIO",
+          "nombre": "Diseño Biomédico",
+          "creditos": 4,
+          "institucion": "Escuela",
+          "prerrequisitos": ["BIOM", "BIMT", "BIOI"],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP2R",
+          "nombre": "Electiva Programa 2",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP3R",
+          "nombre": "Electiva Programa 3",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP4R",
+          "nombre": "Electiva Programa 4",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "MINVR",
+          "nombre": "Metodología de la Investigación",
+          "creditos": 2,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        }
+      ]
+    },
+    {
+      "numero": 13,
+      "materias": [
+        {
+          "codigo": "PYDPR",
+          "nombre": "Trabajo Dirigido o Pasantía",
+          "creditos": 4,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP5R",
+          "nombre": "Electiva Programa 5",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        },
+        {
+          "codigo": "ELP6R",
+          "nombre": "Electiva Programa 6",
+          "creditos": 3,
+          "institucion": "UR",
+          "prerrequisitos": [],
+          "correquisitos": []
+        }
+      ]
+    }
+  ],
+  "electivas": [
+    {
+      "codigo": "AYPR",
+      "nombre": "Algoritmos y Programación de Computadores",
+      "creditos": 3,
+      "institucion": "Escuela",
+      "prerrequisitos": [],
+      "correquisitos": []
+    },
+    {
+      "codigo": "CPICR",
+      "nombre": "Constitución Política e Instrucción Cívica",
+      "creditos": 3,
+      "institucion": "UR",
+      "prerrequisitos": [],
+      "correquisitos": []
+    },
+    {
+      "codigo": "GMCHR",
+      "nombre": "Gestión de Mantenimiento Clínico Hospitalario",
+      "creditos": 3,
+      "institucion": "Escuela",
+      "prerrequisitos": [],
+      "correquisitos": []
+    }
+  ]
+}
