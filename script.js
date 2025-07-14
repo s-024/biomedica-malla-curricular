@@ -1,5 +1,3 @@
-// script.js - Versión mejorada con interactividad de prerrequisitos
-
 document.addEventListener('DOMContentLoaded', function() {
     let materiasData = []; // Almacenará todas las materias
     
@@ -37,9 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             semestre.materias.forEach(materia => {
                 const materiaDiv = document.createElement('div');
-                materiaDiv.className = `materia ${materia.institucion.toLowerCase()} locked`;
+                materiaDiv.className = `materia ${materia.institucion.toLowerCase()}`;
+                materiaDiv.dataset.id = materia.id;
                 materiaDiv.dataset.codigo = materia.codigo;
                 materiaDiv.dataset.prerrequisitos = materia.prerrequisitos.join(',');
+                
+                // Mostrar ID
+                const materiaId = document.createElement('span');
+                materiaId.className = 'materia-id';
+                materiaId.textContent = `#${materia.id}`;
+                materiaDiv.appendChild(materiaId);
                 
                 const materiaNombre = document.createElement('h3');
                 materiaNombre.textContent = materia.nombre;
@@ -55,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Mostrar icono de candado si tiene prerrequisitos
                 if (materia.prerrequisitos.length > 0) {
+                    materiaDiv.classList.add('locked');
                     const lockIcon = document.createElement('span');
                     lockIcon.className = 'lock-icon';
                     lockIcon.innerHTML = '🔒';
@@ -67,20 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
             semestreDiv.appendChild(materiasContainer);
             mallaContainer.appendChild(semestreDiv);
         });
-        
-        // Desbloquear materias sin prerrequisitos inicialmente
-        unlockInitialCourses();
-    }
-
-    // Desbloquear materias sin prerrequisitos
-    function unlockInitialCourses() {
-        document.querySelectorAll('.materia').forEach(materiaDiv => {
-            const prerrequisitos = materiaDiv.dataset.prerrequisitos;
-            if (!prerrequisitos || prerrequisitos === '') {
-                materiaDiv.classList.remove('locked');
-                materiaDiv.querySelector('.lock-icon')?.remove();
-            }
-        });
     }
 
     // Configurar event listeners
@@ -92,9 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     return; // No hacer nada si está bloqueada
                 }
                 
-                const codigo = this.dataset.codigo;
-                showMateriaInfo(codigo);
-                highlightNextCourses(codigo);
+                const id = this.dataset.id;
+                showMateriaInfo(id);
+                highlightNextCourses(id);
             });
         });
         
@@ -106,11 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Mostrar información de una materia específica
-    function showMateriaInfo(codigo) {
-        const materia = materiasData.find(m => m.codigo === codigo);
+    function showMateriaInfo(id) {
+        const materia = materiasData.find(m => m.id == id);
         if (!materia) return;
         
         document.getElementById('materia-nombre').textContent = materia.nombre;
+        document.getElementById('materia-id').textContent = materia.id;
         document.getElementById('materia-codigo').textContent = materia.codigo;
         document.getElementById('materia-creditos').textContent = materia.creditos;
         document.getElementById('materia-institucion').textContent = materia.institucion;
@@ -123,10 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
             li.textContent = 'No tiene prerrequisitos';
             prerrequisitosList.appendChild(li);
         } else {
-            materia.prerrequisitos.forEach(prerreqCodigo => {
+            materia.prerrequisitos.forEach(prerreqId => {
                 const li = document.createElement('li');
-                const prerreq = materiasData.find(m => m.codigo === prerreqCodigo);
-                li.textContent = `${prerreqCodigo} - ${prerreq?.nombre || 'Desconocido'}`;
+                const prerreq = materiasData.find(m => m.id == prerreqId);
+                li.textContent = `#${prerreqId} - ${prerreq?.codigo || '???'}: ${prerreq?.nombre || 'Desconocido'}`;
                 prerrequisitosList.appendChild(li);
             });
         }
@@ -135,21 +128,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Resaltar las materias que tienen esta como prerrequisito
-    function highlightNextCourses(codigo) {
+    function highlightNextCourses(id) {
         clearHighlights();
         
         document.querySelectorAll('.materia').forEach(materiaDiv => {
             const prerrequisitos = materiaDiv.dataset.prerrequisitos.split(',');
-            if (prerrequisitos.includes(codigo)) {
+            if (prerrequisitos.includes(id.toString())) {
                 materiaDiv.classList.add('highlighted');
                 
-                // Mostrar efecto de desbloqueo si era la última materia requerida
+                // Verificar si todos los prerrequisitos están cumplidos
                 const allPrerreqs = materiaDiv.dataset.prerrequisitos.split(',');
-                const allPrerreqsUnlocked = allPrerreqs.every(prerreq => {
-                    return document.querySelector(`.materia[data-codigo="${prerreq}"]`)?.classList?.contains('unlocked');
+                const allPrerreqsUnlocked = allPrerreqs.every(prerreqId => {
+                    const prerreqDiv = document.querySelector(`.materia[data-id="${prerreqId}"]`);
+                    return prerreqDiv && !prerreqDiv.classList.contains('locked');
                 });
                 
-                if (allPrerreqsUnlocked) {
+                if (allPrerreqsUnlocked && materiaDiv.classList.contains('locked')) {
+                    // Desbloquear la materia
                     materiaDiv.classList.remove('locked');
                     materiaDiv.querySelector('.lock-icon')?.remove();
                     materiaDiv.classList.add('unlocked');
