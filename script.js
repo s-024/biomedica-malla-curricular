@@ -1,26 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let materiasData = []; // Almacenará todas las materias
+    let materiasData = [];
     
     // Cargar datos del JSON
     fetch('data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar data.json');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Extraer todas las materias de todos los semestres
+            // Extraer todas las materias
             data.semestres.forEach(semestre => {
                 semestre.materias.forEach(materia => {
+                    // Asegurar que los prerrequisitos sean números
+                    materia.prerrequisitos = materia.prerrequisitos.map(Number);
                     materiasData.push(materia);
                 });
             });
             
             renderMalla(data);
             setupEventListeners();
+            unlockInitialCourses();
         })
-        .catch(error => console.error('Error al cargar los datos:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al cargar los datos. Verifica la consola para más detalles.');
+        });
 
     // Función para renderizar la malla
     function renderMalla(data) {
         const mallaContainer = document.getElementById('malla-container');
-        mallaContainer.innerHTML = ''; // Limpiar contenedor
+        mallaContainer.innerHTML = '';
         
         data.semestres.forEach(semestre => {
             const semestreDiv = document.createElement('div');
@@ -35,36 +46,44 @@ document.addEventListener('DOMContentLoaded', function() {
             
             semestre.materias.forEach(materia => {
                 const materiaDiv = document.createElement('div');
-                materiaDiv.className = `materia ${materia.institucion.toLowerCase()}`;
+                
+                // Clase CSS basada en la institución (tomando solo la primera parte si es Escuela/UR)
+                const institucionClass = materia.institucion.toLowerCase().split('/')[0];
+                materiaDiv.className = `materia ${institucionClass}`;
+                
+                // Atributos de datos
                 materiaDiv.dataset.id = materia.id;
                 materiaDiv.dataset.codigo = materia.codigo;
                 materiaDiv.dataset.prerrequisitos = materia.prerrequisitos.join(',');
                 
-                // Mostrar ID
+                // ID visible
                 const materiaId = document.createElement('span');
                 materiaId.className = 'materia-id';
                 materiaId.textContent = `#${materia.id}`;
                 materiaDiv.appendChild(materiaId);
                 
+                // Nombre
                 const materiaNombre = document.createElement('h3');
                 materiaNombre.textContent = materia.nombre;
                 materiaDiv.appendChild(materiaNombre);
                 
+                // Código
                 const materiaCodigo = document.createElement('p');
                 materiaCodigo.textContent = `Código: ${materia.codigo}`;
                 materiaDiv.appendChild(materiaCodigo);
                 
+                // Créditos
                 const materiaCreditos = document.createElement('p');
                 materiaCreditos.textContent = `Créditos: ${materia.creditos}`;
                 materiaDiv.appendChild(materiaCreditos);
                 
-                // Mostrar icono de candado si tiene prerrequisitos
+                // Icono de candado si tiene prerrequisitos
                 if (materia.prerrequisitos.length > 0) {
-                    materiaDiv.classList.add('locked');
                     const lockIcon = document.createElement('span');
                     lockIcon.className = 'lock-icon';
                     lockIcon.innerHTML = '🔒';
                     materiaDiv.appendChild(lockIcon);
+                    materiaDiv.classList.add('locked');
                 }
                 
                 materiasContainer.appendChild(materiaDiv);
@@ -72,6 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             semestreDiv.appendChild(materiasContainer);
             mallaContainer.appendChild(semestreDiv);
+        });
+    }
+
+    // Desbloquear materias sin prerrequisitos inicialmente
+    function unlockInitialCourses() {
+        document.querySelectorAll('.materia').forEach(materiaDiv => {
+            const prerrequisitos = materiaDiv.dataset.prerrequisitos;
+            if (!prerrequisitos || prerrequisitos === '') {
+                materiaDiv.classList.remove('locked');
+                materiaDiv.querySelector('.lock-icon')?.remove();
+            }
         });
     }
 
@@ -120,6 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 const prerreq = materiasData.find(m => m.id == prerreqId);
                 li.textContent = `#${prerreqId} - ${prerreq?.codigo || '???'}: ${prerreq?.nombre || 'Desconocido'}`;
+                
+                // Añadir clase si el prerrequisito está bloqueado
+                const prerreqDiv = document.querySelector(`.materia[data-id="${prerreqId}"]`);
+                if (prerreqDiv && prerreqDiv.classList.contains('locked')) {
+                    li.classList.add('prerrequisito-bloqueado');
+                }
+                
                 prerrequisitosList.appendChild(li);
             });
         }
