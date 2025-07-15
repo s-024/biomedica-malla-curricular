@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error al cargar los datos. Verifica la consola para más detalles.');
         });
 
-    // Renderizar la malla
+    // Renderizar la malla en columnas
     function renderMalla(data) {
         const mallaContainer = document.getElementById('malla-container');
         mallaContainer.innerHTML = '';
@@ -70,6 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 materiaCreditos.textContent = `Créditos: ${materia.creditos}`;
                 materiaDiv.appendChild(materiaCreditos);
                 
+                // Institución
+                const institucion = document.createElement('span');
+                institucion.className = 'institucion';
+                institucion.textContent = materia.institucion.split('/')[0]; // Tomar solo la primera parte si es Escuela/UR
+                materiaDiv.appendChild(institucion);
+                
                 // Icono de candado si tiene prerrequisitos
                 if (materia.prerrequisitos.length > 0) {
                     materiaDiv.classList.add('locked');
@@ -103,11 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Click en materia
         document.querySelectorAll('.materia').forEach(materia => {
             materia.addEventListener('click', function() {
+                // No hacer nada si está bloqueada
+                if (this.classList.contains('locked')) return;
+                
                 const materiaId = parseInt(this.dataset.id);
-                const isCompleted = completedCourses.has(materiaId);
                 
                 // Toggle estado de completado
-                if (isCompleted) {
+                if (completedCourses.has(materiaId)) {
                     completedCourses.delete(materiaId);
                     this.classList.remove('completed');
                 } else {
@@ -121,43 +129,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Botón de reinicio
-        document.getElementById('reset-button')?.addEventListener('click', () => {
-            completedCourses.clear();
-            document.querySelectorAll('.materia').forEach(materia => {
-                materia.classList.remove('completed');
-                const hasPrerequisites = materia.dataset.prerrequisitos && materia.dataset.prerrequisitos !== '';
-                if (hasPrerequisites) {
-                    materia.classList.add('locked');
-                    if (!materia.querySelector('.lock-icon')) {
-                        const lockIcon = document.createElement('span');
-                        lockIcon.className = 'lock-icon';
-                        lockIcon.innerHTML = '🔒';
-                        materia.appendChild(lockIcon);
-                    }
-                }
-            });
-            unlockInitialCourses();
-        });
+        document.getElementById('reset-button')?.addEventListener('click', resetAllCourses);
     }
 
     // Actualizar estado de bloqueo de todas las materias
     function updateAllCoursesLockStatus() {
-        document.querySelectorAll('.materia').forEach(materiaDiv => {
+        document.querySelectorAll('.materia.locked').forEach(materiaDiv => {
             const prereqIds = materiaDiv.dataset.prerrequisitos.split(',').filter(id => id !== '');
-            
-            // Si no tiene prerrequisitos, no hacer nada
-            if (prereqIds.length === 0) return;
             
             // Verificar si todos los prerrequisitos están completados
             const allPrereqsCompleted = prereqIds.every(prereqId => {
                 return completedCourses.has(parseInt(prereqId));
             });
             
-            // Actualizar estado de bloqueo
             if (allPrereqsCompleted) {
                 unlockMateria(materiaDiv);
-            } else {
-                lockMateria(materiaDiv);
+            }
+        });
+        
+        // Verificar si hay materias que deben volver a bloquearse
+        document.querySelectorAll('.materia:not(.locked)').forEach(materiaDiv => {
+            const prereqIds = materiaDiv.dataset.prerrequisitos.split(',').filter(id => id !== '');
+            if (prereqIds.length > 0) {
+                const anyPrereqMissing = prereqIds.some(prereqId => {
+                    return !completedCourses.has(parseInt(prereqId));
+                });
+                
+                if (anyPrereqMissing) {
+                    lockMateria(materiaDiv);
+                }
             }
         });
     }
@@ -189,5 +189,18 @@ document.addEventListener('DOMContentLoaded', function() {
             lockIcon.innerHTML = '🔒';
             materiaDiv.appendChild(lockIcon);
         }
+    }
+
+    // Reiniciar todas las materias
+    function resetAllCourses() {
+        completedCourses.clear();
+        document.querySelectorAll('.materia').forEach(materia => {
+            materia.classList.remove('completed');
+            const hasPrerequisites = materia.dataset.prerrequisitos && materia.dataset.prerrequisitos !== '';
+            if (hasPrerequisites) {
+                lockMateria(materia);
+            }
+        });
+        unlockInitialCourses();
     }
 });
